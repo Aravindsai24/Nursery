@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nursery.MyAdapter
 import com.example.nursery.Plant
 import com.example.nursery.R
 import com.example.nursery.databinding.FragmentDashboardBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 
 class DashboardFragment : Fragment() {
@@ -41,14 +43,19 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = GridLayoutManager(activity,2)
 
         plantArrayList = arrayListOf()
 
-        myAdapter = MyAdapter(plantArrayList, activity?.applicationContext)
+        myAdapter = MyAdapter(plantArrayList, activity?.applicationContext){ itemDto: Plant, position: Int ->
+            Log.e("MyActivity", "Clicked on item  ${itemDto.pName} at position $position")
+            Snackbar.make(view, "Clicked on item  ${itemDto.pName} at position $position",
+                Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
 
         recyclerView.adapter = myAdapter
+
 
         EventChangeListener()
     }
