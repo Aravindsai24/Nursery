@@ -7,16 +7,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.nursery.databinding.ActivityHome2Binding
+import com.example.nursery.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHome2Binding
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityHome2Binding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
