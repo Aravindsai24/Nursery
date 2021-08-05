@@ -3,6 +3,7 @@ package com.example.nursery
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +12,8 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUp : AppCompatActivity() {
     lateinit var etfullname: EditText
@@ -44,8 +47,17 @@ class SignUp : AppCompatActivity() {
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT)
                                 .show()
-                            userFullName = etfullname.text.toString()
-                            // the auth.user is signed out and sent to signin screen
+                            val user = FirebaseAuth.getInstance().currentUser
+
+                            val profileUpdates = userProfileChangeRequest {
+                                displayName =etfullname.text.toString()
+                            }
+                            user!!.updateProfile(profileUpdates)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Log.d(SignUp::class.java.simpleName, "User profile updated.")
+                                    }
+                                }
                             FirebaseAuth.getInstance().signOut()
                             val intent = Intent(this, GoogleSignInActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -59,7 +71,6 @@ class SignUp : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
-                            userFullName= ""
                         }
                     }
                 )
@@ -70,7 +81,5 @@ class SignUp : AppCompatActivity() {
     private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-    companion object{
-        var userFullName:String =""
-    }
+
 }

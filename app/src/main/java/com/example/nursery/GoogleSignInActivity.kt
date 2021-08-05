@@ -20,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.database.FirebaseDatabase
 
 
 class GoogleSignInActivity : AppCompatActivity() {
