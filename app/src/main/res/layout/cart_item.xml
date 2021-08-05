@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="6dp">
+
+    <Button
+        android:id="@+id/ci_delete"
+        android:layout_width="48dp"
+        android:layout_height="36dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="X"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ci_plant_image"
+        android:layout_width="102dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cart" />
+
+    <TextView
+        android:id="@+id/ci_plant_name"
+        android:layout_width="121dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:text="Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ci_plant_image"
+        app:layout_constraintTop_toTopOf="@+id/ci_plant_image" />
+
+    <TextView
+        android:id="@+id/ci_quantity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="2"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/ci_quantity_decrease"
+        app:layout_constraintTop_toBottomOf="@+id/ci_plant_image" />
+
+    <Button
+        android:id="@+id/ci_quantity_decrease"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="-"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ci_quantity" />
+
+    <Button
+        android:id="@+id/ci_quantity_increase"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ci_quantity"
+        app:layout_constraintStart_toEndOf="@+id/ci_quantity"
+        app:layout_constraintTop_toTopOf="@+id/ci_quantity"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ci_availability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="In Stock"
+        app:layout_constraintStart_toEndOf="@+id/ci_plant_image"
+        app:layout_constraintTop_toBottomOf="@+id/ci_price" />
+
+    <TextView
+        android:id="@+id/ci_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="price"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ci_plant_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ci_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="price"
+        app:layout_constraintStart_toEndOf="@+id/ci_plant_image"
+        app:layout_constraintTop_toBottomOf="@+id/ci_plant_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
