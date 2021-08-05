@@ -1,7 +1,7 @@
 package com.example.nursery
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
@@ -9,13 +9,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.nursery.databinding.ActivityHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    var TAG = HomeActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        try {
+            this.supportActionBar!!.hide()
+        } catch (e: NullPointerException) {
+            Log.e(TAG,e.toString())
+        }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 

@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -11,11 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class MyAdapter(
-    private val plantList: ArrayList<Plant>,
+    private var plantList: ArrayList<Plant>,
     var context: Context?,
     val clickListener: (Plant, Int) -> Unit
 ) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<MyAdapter.MyViewHolder>(), Filterable {
+
+    var filterPlantList: ArrayList<Plant>
+
+    init {
+        filterPlantList = plantList
+    }
+
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val pName: TextView = view.findViewById(R.id.PlantName)
         val availability: TextView = view.findViewById(R.id.avail)
@@ -36,7 +45,7 @@ class MyAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val plant: Plant = plantList[position]
+        val plant: Plant = filterPlantList[position]
         //https://www.simplyfresh.co.in/wp-content/uploads/2019/11/3_Oregano.png
         Glide.with(context).load(plant.pImg).into(holder.pImg)
         holder.pName.text = plant.pName
@@ -51,8 +60,38 @@ class MyAdapter(
     }
 
     override fun getItemCount(): Int {
-        return plantList.size
+        return filterPlantList.size
     }
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString().lowercase()
+                if (charSearch.isEmpty()) {
+                    filterPlantList = plantList
+                } else {
+                    val resultList = ArrayList<Plant>()
+                    for (row in plantList) {
+                        if (row.pName?.lowercase()
+                                ?.contains(charSearch)!!
+                        ) {
+                            resultList.add(row)
+                        }
+                    }
+                    filterPlantList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filterPlantList
+                return filterResults
+            }
 
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filterPlantList = results?.values as ArrayList<Plant>
+                notifyDataSetChanged()
+            }
+
+        }
+
+    }
 }
