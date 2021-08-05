@@ -3,8 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.14719202898550723" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.13044579533941236" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.13728470111448834" />
