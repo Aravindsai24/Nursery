@@ -1,13 +1,13 @@
 package com.example.nursery.ui.home
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -48,13 +48,28 @@ class HomeFragment : Fragment() {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(activity, GoogleSignInActivity::class.java))
         }
-        val fullname: TextView = binding.tvName
+        val fullname: TextView = binding.tvLName
         val email: TextView = binding.tvEmailProfile
-        val userId:TextView=binding.tvuserId
+        //val userId:TextView=binding.tvFName
+        val address: EditText =binding.etAddress
+        address.isEnabled=false
+        val btnEdit:Button=binding.editbtn
+        btnEdit.setOnClickListener {
+            if((btnEdit.text.toString())=="Save"){
+                //save the address in db
+                address.isEnabled=false
+                btnEdit.setText("Edit")
+            }
+            else{
+                //code for edit
+                address.isEnabled=true
+                btnEdit.setText("Save")
+            }
+        }
         val acct = FirebaseAuth.getInstance().currentUser
         fullname.text = acct!!.getDisplayName().toString().toUpperCase()
         email.text = acct.getEmail().toString()
-        userId.text=acct.uid.toString()
+//        userId.text=acct.uid.toString()
 
         return root
     }
