@@ -81,13 +81,13 @@ class PlantViewFragment : Fragment() {
         btn_qn_dec.setOnClickListener {
             if(pQuantity>1) {
                 pQuantity = pQuantity - 1
-                pQuantity_tv.text = pQuantity.toString()
+                pQuantity_tv.text= pQuantity.toString()
                 total_cost.text = "Total: Rs." + (pQuantity * pPrice).toString()
             }
         }
         btn_qn_inc.setOnClickListener {
             pQuantity = pQuantity + 1
-            pQuantity_tv.text = pQuantity.toString()
+            pQuantity_tv.text= pQuantity.toString()
             total_cost.text = "Total: Rs." + (pQuantity * pPrice).toString()
         }
         btn_add_to_cart.setOnClickListener {
