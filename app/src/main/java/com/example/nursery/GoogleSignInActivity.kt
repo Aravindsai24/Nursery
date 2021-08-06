@@ -48,8 +48,18 @@ class GoogleSignInActivity : AppCompatActivity() {
             startActivity(sintent)
         }
         //sign in with email
-        btnSignIn.setOnClickListener{
-            SignInEmail(etEmail.text.toString().trim { it <= ' ' },etPasswd.text.toString().trim { it <= ' ' })
+        btnSignIn.setOnClickListener {
+            if (
+                etEmail.text.toString().trim { it <= ' ' } == "" || etPasswd.text.toString()
+                    .trim { it <= ' ' } == ""
+            ) Toast.makeText(
+                this,
+                "Enter Valid Details",
+                Toast.LENGTH_SHORT
+            ).show() else
+                SignInEmail(
+                    etEmail.text.toString().trim { it <= ' ' },
+                    etPasswd.text.toString().trim { it <= ' ' })
         }
 
         //sign in using google
@@ -69,7 +79,7 @@ class GoogleSignInActivity : AppCompatActivity() {
     }
 
     private fun SignInEmail(email: String, passwd: String) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, passwd).addOnCompleteListener (
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, passwd).addOnCompleteListener(
             OnCompleteListener<AuthResult> { task ->
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
@@ -86,7 +96,7 @@ class GoogleSignInActivity : AppCompatActivity() {
                 }
             })
 
-        }
+    }
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
@@ -129,7 +139,7 @@ class GoogleSignInActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        if(user!=null) {
+        if (user != null) {
             val intent = Intent(this, HomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -35,7 +35,7 @@ class SignUp : AppCompatActivity() {
     fun RegisterDetails(view: View) {
 
         if ((password.text.toString() != password2.text.toString()) || !isEmailValid(
-                email.text.toString().trim { it <= ' ' })
+                email.text.toString().trim { it <= ' ' }) ||(etfullname.text.toString()=="")
         ) {
             Toast.makeText(this, "Enter Valid Details", Toast.LENGTH_LONG).show()
         } else {
