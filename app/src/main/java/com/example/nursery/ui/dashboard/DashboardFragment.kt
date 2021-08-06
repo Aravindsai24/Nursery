@@ -3,22 +3,17 @@ package com.example.nursery.ui.dashboard
 import android.annotation.SuppressLint
 import android.location.Address
 import android.location.Geocoder
-import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nursery.*
 import com.example.nursery.R
@@ -27,7 +22,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.util.*
@@ -36,7 +30,7 @@ import kotlin.collections.ArrayList
 
 class DashboardFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var plantArrayList: ArrayList<PlantItem>
+    private lateinit var plantArrayList: ArrayList<Plant>
     private lateinit var myAdapter: MyAdapter
     private lateinit var db: FirebaseFirestore
     lateinit var navController: NavController
@@ -92,25 +86,19 @@ class DashboardFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
         plantArrayList = arrayListOf()
         navController = findNavController()
-        myAdapter = MyAdapter(plantArrayList, activity?.applicationContext,navController)
 
         myAdapter = MyAdapter(
             plantArrayList,
-            activity?.applicationContext
+            activity?.applicationContext,
+            navController
         ) { itemDto: Plant, position: Int ->
-            Log.e("MyActivity", "Clicked on item  ${itemDto.pName} at position $position")
-            Snackbar.make(
-                view, "Clicked on item  ${itemDto.pName} at position $position",
-                Snackbar.LENGTH_LONG
-            )
-                .setAction("Action", null)
-                .setAnchorView(R.id.nav_view)
-                .show()
+            val bundle: Bundle = Bundle()
+            bundle.putString("pId",itemDto.pId)
+            navController.navigate(R.id.plantViewFragment,bundle)
         }
 
         recyclerView.adapter = myAdapter
         navController = findNavController()
-        recyclerView.addOnItemTouchListener(recyclerItemClickListener(navController))
 
 //        recyclerView.onS
 
@@ -138,7 +126,9 @@ class DashboardFragment : Fragment() {
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
-                            plantArrayList.add(PlantItem(dc.document.id,dc.document.toObject(Plant::class.java)))
+                            var plant = dc.document.toObject(Plant::class.java)
+                            plant.pId=dc.document.id
+                            plantArrayList.add(plant)
                         }
                     }
                     myAdapter.notifyDataSetChanged()
@@ -158,13 +148,6 @@ class DashboardFragment : Fragment() {
                 if (taskLocation.isSuccessful && taskLocation.result != null) {
 
                     val location = taskLocation.result
-
-//                    latitudeText.text = resources
-//                        .getString(R.string.latitude_label, location?.latitude)
-//                    longitudeText.text = resources
-//                        .getString(R.string.longitude_label, location?.longitude)
-
-
                     val addresses: List<Address>
 
 
@@ -177,12 +160,6 @@ class DashboardFragment : Fragment() {
 
                     val address: String =
                         addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-
-                    val city: String = addresses[0].getLocality()
-                    val state: String = addresses[0].getAdminArea()
-                    val country: String = addresses[0].getCountryName()
-                    val postalCode: String = addresses[0].getPostalCode()
-                    val knownName: String = addresses[0].getFeatureName()
                     showLocation.text = address
                 } else {
                     Log.w("address", "getLastLocation:exception", taskLocation.exception)
@@ -209,27 +186,4 @@ class DashboardFragment : Fragment() {
 
     }
 
-
-    class recyclerItemClickListener(val navController: NavController): RecyclerView.OnItemTouchListener {
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            val view = rv.findChildViewUnder(e.x,e.y)
-            if(view == null) {
-                return false
-            }
-            val itemView = rv.findContainingViewHolder(view!!) as MyAdapter.MyViewHolder
-            val bundle: Bundle = Bundle()
-            bundle.putString("pId",itemView.pId)
-            navController.navigate(R.id.plantViewFragment,bundle)
-            return false
-        }
-
-        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-
-        }
-
-        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-
-        }
-
-    }
 }

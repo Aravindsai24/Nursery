@@ -13,11 +13,11 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MyAdapter(private val plantList: ArrayList<PlantItem>, var context: Context?, val navController: NavController) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
 class MyAdapter(
     private var plantList: ArrayList<Plant>,
     var context: Context?,
+    val navController: NavController,
     val clickListener: (Plant, Int) -> Unit
 ) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>(), Filterable {
@@ -32,7 +32,6 @@ class MyAdapter(
         val pName: TextView = view.findViewById(R.id.PlantName)
         val availability: TextView = view.findViewById(R.id.avail)
         val pPrice: TextView = view.findViewById(R.id.cost)
-        val pImg: ImageView =view.findViewById(R.id.item_image_view)
         lateinit var pId: String
         val pImg: ImageView = view.findViewById(R.id.item_image_view)
         val cardContainer: CardView = view.findViewById(R.id.cardView)
@@ -50,8 +49,6 @@ class MyAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val plantItem: PlantItem = plantList[position]
-        val plant: Plant = plantItem.plant
         val plant: Plant = filterPlantList[position]
         //https://www.simplyfresh.co.in/wp-content/uploads/2019/11/3_Oregano.png
         Glide.with(context).load(plant.pImg).into(holder.pImg)
@@ -64,7 +61,7 @@ class MyAdapter(
         }
         // holder.itemView.
         holder?.cardContainer?.setOnClickListener { clickListener(plant, position) }
-        holder.pId = plantItem.pId
+        holder.pId = plant.pId.toString()
        // holder.itemView.
     }
 
