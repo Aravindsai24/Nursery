@@ -19,7 +19,7 @@ import com.example.nursery.R
 import com.example.nursery.databinding.FragmentDashboardBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
@@ -184,15 +184,17 @@ class DashboardFragment : Fragment() {
         actionStrId: Int = 0,
         listener: View.OnClickListener? = null
     ) {
-        val snackbar = view?.let {
+        val snackbar = getActivity()?.let {
             Snackbar.make(
                 it.findViewById(android.R.id.content), getString(snackStrId),
-                LENGTH_INDEFINITE)
+                LENGTH_SHORT)
         }
         if (actionStrId != 0 && listener != null) {
             snackbar?.setAction(getString(actionStrId), listener)
         }
+        snackbar?.setAnchorView(R.id.nav_view)
         snackbar?.show()
+
     }
 
 }
