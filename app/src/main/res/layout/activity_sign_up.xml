@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nursery App"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/green_700"
+        android:textStyle="bold"
         android:textSize="50sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"/>

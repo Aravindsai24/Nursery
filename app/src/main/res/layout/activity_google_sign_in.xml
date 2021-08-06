@@ -14,7 +14,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:text="Nursery App"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/green_700"
+        android:textStyle="bold"
         android:textSize="50sp" />
 
     <EditText

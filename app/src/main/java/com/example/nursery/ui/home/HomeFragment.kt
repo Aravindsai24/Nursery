@@ -46,7 +46,12 @@ class HomeFragment : Fragment() {
         btnLogout = binding.logoutbtn
         btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(activity, GoogleSignInActivity::class.java))
+            var intent=Intent(activity, GoogleSignInActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+
+
         }
         val fullname: TextView = binding.tvLName
         val email: TextView = binding.tvEmailProfile
