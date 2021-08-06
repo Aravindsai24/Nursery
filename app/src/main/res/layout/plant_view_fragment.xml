@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlantViewFragment">
+
+    <Button
+        android:id="@+id/pv_quantity_increase"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:iconPadding="0dp"
+        app:layout_constraintStart_toEndOf="@+id/pv_quantity"
+        app:layout_constraintTop_toTopOf="@+id/pv_quantity" />
+
+    <Button
+        android:id="@+id/pv_quantity_decrease"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="-"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pv_quantity" />
+
+    <TextView
+        android:id="@+id/pv_quantity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="2"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/pv_quantity_decrease"
+        app:layout_constraintTop_toBottomOf="@+id/pv_image" />
+
+    <TextView
+        android:id="@+id/pv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="plant Name"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pv_image"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_bag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pv_availability" />
+
+    <TextView
+        android:id="@+id/pv_availability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="6dp"
+        android:text="In Stock"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/pv_name"
+        app:layout_constraintTop_toBottomOf="@+id/pv_name" />
+
+    <TextView
+        android:id="@+id/pv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pv_name"
+        app:layout_constraintTop_toTopOf="@+id/pv_name" />
+
+    <TextView
+        android:id="@+id/pv_total_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Cost"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pv_quantity_increase"
+        app:layout_constraintStart_toEndOf="@+id/pv_quantity_increase"
+        app:layout_constraintTop_toTopOf="@+id/pv_quantity_increase" />
+
+    <Button
+        android:id="@+id/btn_add_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Add To Cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pv_quantity" />
+
+    <TextView
+        android:id="@+id/pv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Description"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
