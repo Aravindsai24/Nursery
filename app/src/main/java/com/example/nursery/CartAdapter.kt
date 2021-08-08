@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-class CartAdapter(val cartItems: ArrayList<OrderItem>, var context: Context, var db: FirebaseFirestore): RecyclerView.Adapter<CartAdapter.cartViewHolder>() {
+class CartAdapter(val cartItems: ArrayList<OrderItem>,
+                  var context: Context): RecyclerView.Adapter<CartAdapter.cartViewHolder>() {
     class cartViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var pName: TextView = view.findViewById(R.id.ci_plant_name)
         var pImage: ImageView = view.findViewById(R.id.ci_plant_image)
@@ -45,6 +46,9 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>, var context: Context, var
         } else {
             holder.pAvailability.text = "Out Of Stock"
             holder.pAvailability.setTextColor(Color.RED)
+            holder.btn_dec.visibility = View.GONE
+            holder.btn_inc.visibility = View.GONE
+            holder.pQuantity.visibility = View.GONE
         }
         holder.pPrice.text = "Rs." + plant.pPrice
         holder.iCost.text = "Rs." + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
