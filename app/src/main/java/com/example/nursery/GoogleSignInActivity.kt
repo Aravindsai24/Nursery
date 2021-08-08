@@ -35,6 +35,7 @@ class GoogleSignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_sign_in)
+        actionBar?.hide()
         // Set the dimensions of the sign-in button.
         val signInButtonGoogle = findViewById<SignInButton>(R.id.google_sign_in_button)
         signInButtonGoogle.setSize(SignInButton.SIZE_STANDARD)

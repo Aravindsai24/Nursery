@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
@@ -11,58 +13,61 @@
         android:id="@+id/tvLName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last Name"
-        android:textSize="35sp"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:text="Last Name"
+        android:textColor="@color/green_700"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvEmailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="abcd@gmail.com"
-        android:textSize="20sp"
-        android:textColor="#504C4C"
-        android:padding="5dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="5dp"
-        android:maxLines="1"/>
-
-    <EditText
-        android:id="@+id/etAddress"
-        android:layout_width="310dp"
-        android:layout_height="81dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/text_input_border"
-        android:gravity="left"
-        android:hint="Enter Address"
-        android:inputType="none"
-        android:maxLines="4"
+        android:maxLines="1"
         android:padding="5dp"
+        android:text="abcd@gmail.com"
+        android:textColor="@color/navy_blue"
         android:textSize="20sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addressLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:layout_marginTop="40dp"
+            android:gravity="left"
+            android:hint="Enter Address"
+            android:inputType="none"
+            android:maxLines="4"
+            android:textColor="@color/navy_blue"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/editbtn"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:text="Edit"
         android:layout_gravity="right"
-        android:textSize="10dp"
+        android:layout_marginTop="0dp"
+        android:text="Edit"
         android:textAllCaps="false"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="0dp" />
+        android:textSize="10dp" />
+
     <Button
         android:id="@+id/logoutbtn"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Logout"
-        android:textAllCaps="false"
-        android:layout_gravity="right"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="40dp"/>
+        android:textAllCaps="false" />
 
 </LinearLayout>

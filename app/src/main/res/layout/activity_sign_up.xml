@@ -4,54 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nursery App"
-        android:textColor="@color/green_700"
-        android:textStyle="bold"
-        android:textSize="50sp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="vertical"
+    tools:context=".SignUp">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"/>
-    <EditText
-        android:id="@+id/etFullName"
-        android:layout_width="300dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/investment" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fullNameIdLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Full Name"
-        android:layout_marginTop="30dp"/>
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="300dp"
+        android:layout_marginTop="40dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="Full Name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailIdSignupLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Email"
-        android:layout_marginTop="30dp"/>
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="300dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="Email" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordSignupLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Password"
-        android:layout_marginTop="30dp"
-        android:inputType="textPassword"/>
-    <EditText
-        android:id="@+id/etPassword2"
-        android:layout_width="300dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password2SignupLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:hint="Confirm Password"
-        android:layout_marginTop="30dp"
-        android:inputType="textPassword"/>
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/register"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:onClick="RegisterDetails"/>
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="3dp"
+        android:backgroundTint="@color/navy_blue"
+        android:onClick="RegisterDetails"
+        android:text="Register"
+        android:textAllCaps="false" />
+
 </LinearLayout>
