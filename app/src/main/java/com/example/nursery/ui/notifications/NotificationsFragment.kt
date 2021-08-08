@@ -5,19 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nursery.*
 import com.example.nursery.databinding.FragmentNotificationsBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class NotificationsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var empty_tv: TextView
     private lateinit var myAdapter: CartAdapter
     private lateinit var db: FirebaseFirestore
+    private lateinit var userId: String
     var cartItems: ArrayList<OrderItem> = ArrayList<OrderItem>()
 
     private var _binding: FragmentNotificationsBinding? = null
@@ -38,15 +42,18 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseFirestore.getInstance()
+        userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         recyclerView = view.findViewById(R.id.rv_cart)
+        empty_tv = view.findViewById(R.id.empty_tv)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        myAdapter = activity?.applicationContext?.let { CartAdapter(cartItems, it, db) }!!
+        myAdapter = activity?.applicationContext?.let { CartAdapter(cartItems, it) }!!
+        myAdapter.registerAdapterDataObserver(RvEmptySupport(empty_tv,recyclerView))
         recyclerView.adapter = myAdapter
         dataChangeListener()
     }
 
     private fun dataChangeListener() {
-        db.collection("cart")
+        db.collection("users").document(userId).collection("cart")
             .addSnapshotListener { value, error ->
                 if(error != null) {
                     Log.e("Firestore error", error.message.toString())
@@ -76,11 +83,11 @@ class NotificationsFragment : Fragment() {
                     val plant = doc.toObject(Plant::class.java)!!
                     cartItems[curIndex].plant = plant
                     myAdapter.notifyItemChanged(curIndex)
-                    Log.d("initial data firebase", "documents loading")
+                    Log.d("plant data firebase", "documents loading")
                 }
             }
             .addOnFailureListener { e ->
-                Log.w("initial data firebase", "Error getting documents: ", e)
+                Log.w("plant data firebase", "Error getting documents: ", e)
             }
     }
 

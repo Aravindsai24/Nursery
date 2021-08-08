@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -13,13 +14,22 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.nursery.databinding.ActivityHomeBinding
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     var TAG = HomeActivity::class.java.simpleName
     private var PERMISSION_ID = 52
+    private lateinit var userId: String
+    private lateinit var userName: String
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +57,29 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        auth = FirebaseAuth.getInstance()
+        userId = auth.currentUser?.uid.toString()
+        userName = auth.currentUser?.displayName.toString()
+        db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(userId)
+        val snapshot: Task<DocumentSnapshot> = userRef.get()
+        snapshot.addOnSuccessListener {
+            if(!it.exists()) {
+                val data = hashMapOf(
+                    "name" to auth.currentUser?.displayName.toString(),
+                    "email" to auth.currentUser?.email.toString()
+                )
+                userRef.set(data)
+                    .addOnSuccessListener {
+                        Log.d("firebase user details", "DocumentSnapshot successfully added!")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("firebase user details", "Error adding documents: ", e)
+                    }
+            }
+        }
+
+
 
     }
 
