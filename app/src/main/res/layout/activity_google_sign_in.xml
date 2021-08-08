@@ -74,9 +74,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
+    <TextView
         android:id="@+id/forgot_password"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:backgroundTint="#FFFFFF"
@@ -93,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:backgroundTint="@color/navy_blue"

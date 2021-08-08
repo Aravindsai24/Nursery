@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    tools:context=".SignUp"
     android:orientation="vertical"
-    tools:context=".SignUp">
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
     <ImageView
         android:layout_width="120dp"
@@ -15,7 +15,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:background="@drawable/investment" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fullNameIdLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,11 +57,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="30dp"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password2SignupLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -75,9 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
             android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="30dp"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -85,12 +83,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="3dp"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:backgroundTint="@color/navy_blue"
-        android:onClick="RegisterDetails"
         android:text="Register"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:onClick="RegisterDetails"/>
 
 </LinearLayout>
