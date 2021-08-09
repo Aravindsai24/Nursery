@@ -27,6 +27,9 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var btnLogout: Button
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+    private lateinit var userId: String
 
 
     // This property is only valid between onCreateView and
@@ -42,16 +45,17 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
+        userId = auth.currentUser?.uid.toString()
+        db = FirebaseFirestore.getInstance()
         val root: View = binding.root
         btnLogout = binding.logoutbtn
         btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+            auth.signOut()
             var intent=Intent(activity, GoogleSignInActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
-
-
         }
         val fullname: TextView = binding.tvLName
         val email: TextView = binding.tvEmailProfile
@@ -61,7 +65,14 @@ class HomeFragment : Fragment() {
         val btnEdit:Button=binding.editbtn
         btnEdit.setOnClickListener {
             if((btnEdit.text.toString())=="Save"){
-                //save the address in db
+                val userRef = db.collection("users").document(userId)
+                userRef.update("Address",address.text.toString())
+                    .addOnSuccessListener {
+                        Log.d("firebase address update", "DocumentSnapshot successfully updated!")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("firebase address update", "Error updating documents: ", e)
+                    }
                 address.isEnabled=false
                 btnEdit.setText("Edit")
             }
