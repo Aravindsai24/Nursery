@@ -1,5 +1,6 @@
 package com.example.nursery
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,6 +16,7 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.nursery.R.color.white
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -40,6 +42,7 @@ class PlantViewFragment : Fragment() {
         return inflater.inflate(R.layout.plant_view_fragment, container, false)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseFirestore.getInstance()
@@ -92,6 +95,8 @@ class PlantViewFragment : Fragment() {
                             } else {
                                 pAvailability.text = "Out Of Stock"
                                 pAvailability.setTextColor(Color.RED)
+                                btn_add_to_cart?.isEnabled = false
+                                btn_add_to_cart?.setTextColor(white)
                             }
                             Glide.with(activity?.applicationContext).load(plant.pImg).into(pImage)
                             pPrice_tv.text = "Rs." + plant.pPrice

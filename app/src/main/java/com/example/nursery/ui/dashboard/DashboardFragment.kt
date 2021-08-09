@@ -31,6 +31,7 @@ import kotlin.collections.ArrayList
 class DashboardFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var plantArrayList: ArrayList<Plant>
+    private lateinit var plantArrayListTemp: ArrayList<Plant>
     private lateinit var myAdapter: MyAdapter
     private lateinit var db: FirebaseFirestore
     lateinit var navController: NavController
@@ -84,6 +85,7 @@ class DashboardFragment : Fragment() {
         })
 //        recyclerView.layoutManager = object : GridLayoutManager(activity, 2){ override fun canScrollVertically(): Boolean { return false } }
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
+        plantArrayListTemp = arrayListOf()
         plantArrayList = arrayListOf()
         navController = findNavController()
 
@@ -128,12 +130,17 @@ class DashboardFragment : Fragment() {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             var plant = dc.document.toObject(Plant::class.java)
                             plant.pId=dc.document.id
-                            plantArrayList.add(plant)
+                            plantArrayListTemp.add(plant)
                         }
                     }
+                    if (plantArrayListTemp != null) {
+                        plantArrayList.addAll(plantArrayListTemp.sortedWith(compareByDescending<Plant> { it.availability }.thenBy { it.pName }).filterNotNull())
+                    }
+                    Log.i("Data From Firebase - ",plantArrayList.toString())
                     myAdapter.notifyDataSetChanged()
                 }
             })
+
     }
 
     override fun onDestroyView() {

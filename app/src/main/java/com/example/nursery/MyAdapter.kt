@@ -9,6 +9,7 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -55,14 +56,21 @@ class MyAdapter(
         holder.pName.text = plant.pName
         holder.pPrice.text = "₹" + plant.pPrice
         holder.availability.text = if (plant.availability == true) {
-            "Yes"
+            "Available"
         } else {
-            "No"
+            "Out of Stock"
         }
+        holder.availability.setTextColor(
+            if (plant.availability == true) {
+                ContextCompat.getColor(context!!, R.color.green)
+            } else {
+                ContextCompat.getColor(context!!, R.color.red)
+            }
+        )
         // holder.itemView.
         holder?.cardContainer?.setOnClickListener { clickListener(plant, position) }
         holder.pId = plant.pId.toString()
-       // holder.itemView.
+        // holder.itemView.
     }
 
     override fun getItemCount(): Int {

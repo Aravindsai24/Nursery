@@ -14,4 +14,6 @@
     <color name="main_color2">#4F6367</color>
     <color name="bg">#89C3C5</color>
     <color name="navy_blue">#293250</color>
+    <color name="green">#4ea043</color>
+    <color name="red">#d14f4f</color>
 </resources>
