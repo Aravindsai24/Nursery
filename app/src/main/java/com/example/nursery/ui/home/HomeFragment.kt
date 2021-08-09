@@ -2,6 +2,7 @@ package com.example.nursery.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.nursery.GoogleSignInActivity
+import com.example.nursery.Plant
 import com.example.nursery.R
 import com.example.nursery.SignUp
 import com.example.nursery.databinding.FragmentHomeBinding
@@ -61,11 +63,23 @@ class HomeFragment : Fragment() {
         val email: TextView = binding.tvEmailProfile
         //val userId:TextView=binding.tvFName
         val address: EditText =binding.etAddress
+        val userRef = db.collection("users").document(userId)
+        userRef.get()
+            .addOnSuccessListener { doc ->
+                if (doc != null) {
+                    val Address = doc.data?.get("Address")
+                    if(Address != null) {
+                        address.text = Editable.Factory.getInstance().newEditable(Address.toString())
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("firebase address update", "Error updating documents: ", e)
+            }
         address.isEnabled=false
         val btnEdit:Button=binding.editbtn
         btnEdit.setOnClickListener {
             if((btnEdit.text.toString())=="Save"){
-                val userRef = db.collection("users").document(userId)
                 userRef.update("Address",address.text.toString())
                     .addOnSuccessListener {
                         Log.d("firebase address update", "DocumentSnapshot successfully updated!")
