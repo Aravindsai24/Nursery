@@ -10,6 +10,22 @@
     android:layout_marginBottom="6dp">
 
     <Button
+        android:id="@+id/btn_ci_buynow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="BUY NOW"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ci_quantity_increase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ci_quantity_increase"
+        app:layout_constraintTop_toTopOf="@+id/ci_quantity_increase" />
+
+    <Button
         android:id="@+id/ci_delete"
         android:layout_width="48dp"
         android:layout_height="36dp"
