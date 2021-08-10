@@ -16,27 +16,12 @@
         android:backgroundTint="@color/white"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="BUY NOW"
+        android:text="Return"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:iconPadding="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ci_quantity_increase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ci_quantity_increase"
-        app:layout_constraintTop_toTopOf="@+id/ci_quantity_increase" />
-
-    <Button
-        android:id="@+id/ci_delete"
-        android:layout_width="48dp"
-        android:layout_height="36dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="X"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/ci_plant_image"
@@ -60,49 +45,6 @@
         app:layout_constraintTop_toTopOf="@+id/ci_plant_image" />
 
     <TextView
-        android:id="@+id/ci_quantity"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="2"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/ci_quantity_decrease"
-        app:layout_constraintTop_toBottomOf="@+id/ci_plant_image" />
-
-    <Button
-        android:id="@+id/ci_quantity_decrease"
-        android:layout_width="48dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="-"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ci_quantity" />
-
-    <Button
-        android:id="@+id/ci_quantity_increase"
-        android:layout_width="48dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/white"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="+"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ci_quantity"
-        app:layout_constraintStart_toEndOf="@+id/ci_quantity"
-        app:layout_constraintTop_toTopOf="@+id/ci_quantity"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
         android:id="@+id/ci_availability"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,8 +60,9 @@
         android:layout_height="wrap_content"
         android:text="price"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ci_return"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toEndOf="@+id/ci_plant_name"
         app:layout_constraintTop_toTopOf="parent" />
 

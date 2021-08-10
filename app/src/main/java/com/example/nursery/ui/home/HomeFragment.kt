@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.nursery.GoogleSignInActivity
 import com.example.nursery.Plant
 import com.example.nursery.R
@@ -29,6 +31,8 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
     private lateinit var btnLogout: Button
+    private lateinit var btnOrder: Button
+    lateinit var navController: NavController
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var userId: String
@@ -52,6 +56,7 @@ class HomeFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         val root: View = binding.root
         btnLogout = binding.logoutbtn
+        btnOrder = binding.orderbtn
         btnLogout.setOnClickListener {
             auth.signOut()
             var intent=Intent(activity, GoogleSignInActivity::class.java)
@@ -59,8 +64,12 @@ class HomeFragment : Fragment() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }
+        btnOrder.setOnClickListener {
+            navController.navigate(R.id.orderFragment,)
+        }
         val fullname: TextView = binding.tvLName
         val email: TextView = binding.tvEmailProfile
+        navController = findNavController()
         //val userId:TextView=binding.tvFName
         val address: EditText =binding.etAddress
         val userRef = db.collection("users").document(userId)

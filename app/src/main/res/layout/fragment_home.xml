@@ -63,11 +63,21 @@
         android:textSize="10dp" />
 
     <Button
+        android:id="@+id/orderbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="My Orders"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/logoutbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Logout"
         android:textAllCaps="false" />
+
+
 
 </LinearLayout>

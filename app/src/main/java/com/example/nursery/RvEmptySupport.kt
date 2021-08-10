@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+
 class RvEmptySupport(val emptyView: TextView, val recyclerView: RecyclerView): RecyclerView.AdapterDataObserver() {
     override fun onChanged() {
         super.onChanged()

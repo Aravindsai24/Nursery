@@ -99,7 +99,7 @@ class PlantViewFragment : Fragment() {
                                 btn_add_to_cart?.setTextColor(white)
                             }
                             Glide.with(activity?.applicationContext).load(plant.pImg).into(pImage)
-                            pPrice_tv.text = "Rs." + plant.pPrice
+                            pPrice_tv.text = "₹ " + plant.pPrice
                             pDesc.text = plant.pDesc
                         }
                         Log.d("plant view firebase", "documents loaded succesfully")

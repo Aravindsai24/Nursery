@@ -9,7 +9,11 @@
         android:id="@+id/nav_profile"
         android:name="com.example.nursery.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_profile_to_orderFragment"
+            app:destination="@id/orderFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -25,10 +29,23 @@
         android:id="@+id/nav_cart"
         android:name="com.example.nursery.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_nav_cart_to_plantViewFragment"
+            app:destination="@id/plantViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/plantViewFragment"
         android:name="com.example.nursery.PlantViewFragment"
         android:label="plant_view_fragment"
         tools:layout="@layout/plant_view_fragment" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.nursery.OrderFragment"
+        android:label="plant_order_fragment"
+        tools:layout="@layout/order_fragment" >
+        <action
+            android:id="@+id/action_orderFragment_to_plantViewFragment"
+            app:destination="@id/plantViewFragment" />
+    </fragment>
 </navigation>

@@ -13,9 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,7 +31,7 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
         var iCost: TextView = view.findViewById(R.id.ci_cost)
         var pPrice: TextView = view.findViewById(R.id.ci_price)
         var btn_delete: Button = view.findViewById(R.id.ci_delete)
-        var btn_buynow: Button = view.findViewById(R.id.btn_ci_buynow)
+        var btn_buynow: Button = view.findViewById(R.id.btn_ci_return)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cartViewHolder {

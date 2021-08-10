@@ -1,42 +1,36 @@
-package com.example.nursery.ui.notifications
+package com.example.nursery
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nursery.*
-import com.example.nursery.databinding.FragmentNotificationsBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 
-class NotificationsFragment : Fragment() {
+class OrderFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = OrderFragment()
+    }
     private lateinit var recyclerView: RecyclerView
     private lateinit var empty_tv: TextView
-    private lateinit var myAdapter: CartAdapter
+    private lateinit var myAdapter: OrderAdapter
     private lateinit var db: FirebaseFirestore
     private lateinit var userId: String
-    var cartItems: ArrayList<OrderItem> = ArrayList<OrderItem>()
+    var orderItems: ArrayList<Order> = ArrayList<Order>()
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private lateinit var viewModel: OrderViewModel
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return inflater.inflate(R.layout.order_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,41 +40,45 @@ class NotificationsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rv_order)
         empty_tv = view.findViewById(R.id.order_empty_tv)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        myAdapter = activity?.applicationContext?.let { CartAdapter(cartItems, it, db) }!!
+        myAdapter = activity?.applicationContext?.let { OrderAdapter(orderItems, it, db) }!!
         myAdapter.registerAdapterDataObserver(RvEmptySupport(empty_tv,recyclerView))
         recyclerView.adapter = myAdapter
         dataChangeListener()
     }
 
     private fun dataChangeListener() {
-        db.collection("users").document(userId).collection("cart")
-            .addSnapshotListener { value, error ->
-                if(error != null) {
-                    Log.e("Firestore error", error.message.toString())
-                    return@addSnapshotListener
-                } else {
+        db.collection("users").document(userId).collection("myOrders")
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(
+                    value: QuerySnapshot?,
+                    error: FirebaseFirestoreException?
+                ) {
+                    if (error != null) {
+                        Log.e("Firestore error", error.message.toString())
+                        return
+                    }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             val quantity = dc.document.data["pQuantity"] as Long
                             val pId = dc.document.data["pId"]
+                            val date = dc.document.data["dateAndTime"]
                             val oRef = dc.document.reference
-                            val pRef = db.collection("plantscollection").document(pId as String)
                             var plant: Plant = Plant()
-                            cartItems.add(OrderItem(quantity,plant,pRef,oRef))
-                            getPlant(pRef,cartItems.size-1)
-                            myAdapter.notifyItemInserted(cartItems.size-1)
+                            val pRef = db.collection("plantscollection").document(pId as String)
+                            orderItems.add(Order(date as String?,quantity,plant,oRef))
+                            getOrder(pRef,orderItems.size-1)
+
                         }
                     }
                 }
-            }
+            })
     }
-
-    private fun getPlant(pRef: DocumentReference, curIndex: Int) {
+    private fun getOrder(pRef: DocumentReference, curIndex: Int) {
         pRef.get()
             .addOnSuccessListener { doc ->
                 if(doc!=null) {
                     val plant = doc.toObject(Plant::class.java)!!
-                    cartItems[curIndex].plant = plant
+                    orderItems[curIndex].plant = plant
                     myAdapter.notifyItemChanged(curIndex)
                     Log.d("plant data firebase", "documents loading")
                 }
@@ -90,8 +88,4 @@ class NotificationsFragment : Fragment() {
             }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
