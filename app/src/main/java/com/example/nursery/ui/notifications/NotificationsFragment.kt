@@ -46,7 +46,7 @@ class NotificationsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rv_cart)
         empty_tv = view.findViewById(R.id.empty_tv)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        myAdapter = activity?.applicationContext?.let { CartAdapter(cartItems, it) }!!
+        myAdapter = activity?.applicationContext?.let { CartAdapter(cartItems, it, db) }!!
         myAdapter.registerAdapterDataObserver(RvEmptySupport(empty_tv,recyclerView))
         recyclerView.adapter = myAdapter
         dataChangeListener()
