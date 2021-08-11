@@ -22,6 +22,7 @@ class OrderAdapter(
         val pQuantity: TextView = view.findViewById(R.id.ci_availability)
         val pPrice: TextView = view.findViewById(R.id.ci_price)
         val pCost: TextView = view.findViewById(R.id.ci_cost)
+        val pDate: TextView = view.findViewById(R.id.ci_date)
         lateinit var pId: String
         val pImg: ImageView = view.findViewById(R.id.ci_plant_image)
         val returnBtn: Button = view.findViewById(R.id.btn_ci_return)
@@ -40,6 +41,7 @@ class OrderAdapter(
         holder.pPrice.text = "₹" + order.plant.pPrice
         holder.pQuantity.text = "Quantity : " + order.pQuantity.toString()
         holder.pCost.text = "₹" + (order.pQuantity * (order.plant.pPrice)!!.toLong()).toString()
+        holder.pDate.text = "Ordered on : "+(order.dateAndTime)
         holder.returnBtn.setOnClickListener {
             deleteItem(order,position)
         }
