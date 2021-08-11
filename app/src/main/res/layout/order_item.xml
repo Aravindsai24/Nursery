@@ -55,6 +55,14 @@
         app:layout_constraintTop_toBottomOf="@+id/ci_price" />
 
     <TextView
+        android:id="@+id/ci_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Stock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ci_plant_image" />
+
+    <TextView
         android:id="@+id/ci_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
