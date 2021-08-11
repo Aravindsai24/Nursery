@@ -60,11 +60,11 @@ class OrderFragment : Fragment() {
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             val quantity = dc.document.data["pQuantity"] as Long
-                            val pId = dc.document.data["pId"]
-                            val date = dc.document.data["dateAndTime"]
+                            val pId = (dc.document.data["pId"]).toString()
+                            val date = dc.document.data["dateAndTime"].toString()
                             val oRef = dc.document.reference
                             var plant: Plant = Plant()
-                            val pRef = db.collection("plantscollection").document(pId as String)
+                            val pRef = db.collection("plantscollection").document(pId)
                             orderItems.add(Order(date as String?,quantity,plant,oRef))
                             getOrder(pRef,orderItems.size-1)
 

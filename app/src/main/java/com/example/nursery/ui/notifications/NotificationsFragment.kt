@@ -62,9 +62,9 @@ class NotificationsFragment : Fragment() {
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
                             val quantity = dc.document.data["pQuantity"] as Long
-                            val pId = dc.document.data["pId"]
+                            val pId = dc.document.data["pId"].toString()
                             val oRef = dc.document.reference
-                            val pRef = db.collection("plantscollection").document(pId as String)
+                            val pRef = db.collection("plantscollection").document(pId)
                             var plant: Plant = Plant()
                             cartItems.add(OrderItem(quantity,plant,pRef,oRef))
                             getPlant(pRef,cartItems.size-1)
