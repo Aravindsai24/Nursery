@@ -18,10 +18,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CartAdapter(val cartItems: ArrayList<OrderItem>,
-                  var context: Context,
-                  var db: FirebaseFirestore): RecyclerView.Adapter<CartAdapter.cartViewHolder>() {
-    class cartViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class CartAdapter(
+    val cartItems: ArrayList<OrderItem>,
+    var context: Context,
+    var db: FirebaseFirestore
+) : RecyclerView.Adapter<CartAdapter.cartViewHolder>() {
+    class cartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var pName: TextView = view.findViewById(R.id.ci_plant_name)
         var pImage: ImageView = view.findViewById(R.id.ci_plant_image)
         var pAvailability: TextView = view.findViewById(R.id.ci_availability)
@@ -35,7 +37,8 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cartViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cart_item,parent,false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
         return cartViewHolder(itemView)
     }
 
@@ -46,7 +49,7 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
         holder.pQuantity.text = orderItem.pQuantity.toString()
         holder.pName.text = plant.pName
         Glide.with(context).load(plant.pImg).into(holder.pImage)
-        if(plant.availability == true) {
+        if (plant.availability == true) {
             holder.pAvailability.text = "In Stock"
             holder.pAvailability.setTextColor(Color.GREEN)
             holder.btn_dec.visibility = View.VISIBLE
@@ -61,33 +64,35 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
             holder.pQuantity.visibility = View.GONE
             holder.btn_buynow.visibility = View.GONE
         }
-        holder.pPrice.text = "Rs." + plant.pPrice
-        holder.iCost.text = "Rs." + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
+        holder.pPrice.text = "₹" + plant.pPrice
+        holder.iCost.text = "₹" + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
         holder.btn_delete.setOnClickListener {
-            deleteItem(orderItem,position)
+            deleteItem(orderItem, position)
         }
         holder.btn_inc.setOnClickListener {
-            orderItem.oRef.update("pQuantity",orderItem.pQuantity+1)
+            orderItem.oRef.update("pQuantity", orderItem.pQuantity + 1)
                 .addOnSuccessListener {
                     Log.d("Firebase", "DocumentSnapshot successfully updated!")
-                    orderItem.pQuantity = orderItem.pQuantity+1
+                    orderItem.pQuantity = orderItem.pQuantity + 1
                     holder.pQuantity.text = (orderItem.pQuantity).toString()
-                    holder.iCost.text = "Rs." + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
+                    holder.iCost.text =
+                        "₹" + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
                 }
-            .addOnFailureListener { e ->
-                Log.w("quantity update", "Error getting documents: ", e)
-            }
+                .addOnFailureListener { e ->
+                    Log.w("quantity update", "Error getting documents: ", e)
+                }
         }
         holder.btn_dec.setOnClickListener {
-            if(orderItem.pQuantity == (1).toLong()) {
-                deleteItem(orderItem,position)
+            if (orderItem.pQuantity == (1).toLong()) {
+                deleteItem(orderItem, position)
             }
-            orderItem.oRef.update("pQuantity",orderItem.pQuantity-1)
+            orderItem.oRef.update("pQuantity", orderItem.pQuantity - 1)
                 .addOnSuccessListener {
                     Log.d("Firebase", "DocumentSnapshot successfully updated!")
-                    orderItem.pQuantity = orderItem.pQuantity-1
+                    orderItem.pQuantity = orderItem.pQuantity - 1
                     holder.pQuantity.text = (orderItem.pQuantity).toString()
-                    holder.iCost.text = "Rs." + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
+                    holder.iCost.text =
+                        "₹" + ((plant.pPrice?.toLong() ?: 0) * orderItem.pQuantity).toString()
                 }
                 .addOnFailureListener { e ->
                     Log.w("quantity update", "Error updating documents: ", e)
@@ -106,8 +111,8 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
             myOrderRef.add(data)
                 .addOnSuccessListener {
                     Log.d("firebase buy now", "DocumentSnapshot successfully added!")
-                    deleteItem(orderItem,position)
-                    Toast.makeText(context,"Thank you for the purchase", Toast.LENGTH_SHORT).show()
+                    deleteItem(orderItem, position)
+                    Toast.makeText(context, "Thank you for the purchase", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
                     Log.w("firebase buynow", "Error adding documents: ", e)
@@ -116,14 +121,16 @@ class CartAdapter(val cartItems: ArrayList<OrderItem>,
         }
 
     }
+
     private fun getDateTime(): String? {
         val calender = Calendar.getInstance()
         var cur_time: Date = calender.time
-        var dateandtime: String = SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.getDefault()).format(cur_time)
+        var dateandtime: String =
+            SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(cur_time)
         return dateandtime
     }
 
-    private fun deleteItem(orderItem: OrderItem,position: Int) {
+    private fun deleteItem(orderItem: OrderItem, position: Int) {
         orderItem.oRef.delete()
             .addOnSuccessListener {
                 Log.d("Firebase", "DocumentSnapshot successfully deleted!")

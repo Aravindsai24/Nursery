@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -41,8 +42,8 @@ class OrderFragment : Fragment() {
         empty_tv = view.findViewById(R.id.order_empty_tv)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         myAdapter = activity?.applicationContext?.let { OrderAdapter(orderItems, it, db) }!!
-        myAdapter.registerAdapterDataObserver(RvEmptySupport(empty_tv,recyclerView))
         recyclerView.adapter = myAdapter
+
         dataChangeListener()
     }
 
@@ -67,8 +68,14 @@ class OrderFragment : Fragment() {
                             val pRef = db.collection("plantscollection").document(pId)
                             orderItems.add(Order(date as String?,quantity,plant,oRef))
                             getOrder(pRef,orderItems.size-1)
-
                         }
+                    }
+                    if (orderItems.isEmpty())
+                    {
+                        empty_tv.setVisibility(View.VISIBLE)
+                    }
+                    else{
+                        empty_tv.setVisibility(View.GONE)
                     }
                 }
             })
