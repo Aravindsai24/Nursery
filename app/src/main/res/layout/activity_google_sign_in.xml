@@ -50,7 +50,9 @@
             android:layout_gravity="center_horizontal"
             android:hint="Email"
             android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/black"
+            android:inputType="text"
+            android:maxLines="1"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -27,7 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:hint="Full Name" />
+            android:hint="Full Name"
+            android:inputType="text"
+            android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:hint="Email" />
+            android:hint="Email"
+            android:inputType="text"
+            android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +63,8 @@
             android:layout_gravity="center_horizontal"
             android:hint="Password"
             android:layout_marginTop="30dp"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:maxLength="15" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password2SignupLayout"
@@ -75,7 +80,8 @@
             android:layout_gravity="center_horizontal"
             android:hint="Confirm Password"
             android:layout_marginTop="30dp"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:maxLength="15"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
